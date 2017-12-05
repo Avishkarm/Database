@@ -1,8 +1,41 @@
-MySQL Installation
+MySQL is the world’s most popular open source database, enabling the cost-effective delivery of reliable, high-performance and scalable Web-based and embedded database applications. It is an integrated transaction safe, ACID-compliant database with full commit, rollback, crash recovery, and row-level locking capabilities. MySQL delivers the ease of use, scalability, and high performance, as well as a full suit of database drivers and visual tools to help developers and DBAs build and manage their business-critical MySQL applications.
+MySQL is a central component of the LAMP open-source web application software stack (and other "AMP" stacks). LAMP is an acronym for "Linux, Apache, MySQL, Perl/PHP/Python". Applications that use the MySQL database include: TYPO3, MODx, Joomla, WordPress, phpBB, MyBB, and Drupal. MySQL is also used in many high-profile, large-scale websites.
+
+MySQL Installation:
+-------------------
 
 sudo apt-get update
 
 sudo apt-get install mysql-server 
+
+Configuring MySQL:
+-----------------
+First, you’ll want to run the included security script. This changes some of the less secure default options for things like remote root logins and sample users.
+
+You’ll be prompt to enter your current password. Enter the root MySQL password set during installation:
+
+Enter current password for root (enter for none):
+
+Then, assuming you set a strong root password, go ahead and enter nat the following prompt:
+
+Change the root password? [Y/n] n
+
+Remove anonymous users, Y:
+
+Remove anonymous users? [Y/n] Y
+
+Disallow root logins remotely, Y:
+
+Disallow root login remotely? [Y/n] Y
+
+Remove test database and access to it, Y:
+
+Remove test database and access to it? [Y/n] Y
+
+And reload privilege tables, Y:
+
+Reload privilege tables now? [Y/n] Y
+
 
 sudo mysql_secure_installation
 
@@ -17,7 +50,9 @@ service mysql status
 If MySQL isn’t running, you can start it with the following command
 sudo service mysql start
 
-Allow Remote Connections
+Allow Remote Connections:
+------------------------
+Commenting the binding_address in the my.cnf file and restarting the mysql server
 
 sudo /etc/mysql/nano my.cnf
 
@@ -26,10 +61,16 @@ bind-address = 0.0.0.0
 
 Restart sudo service mysql restart
 
-Allow particular host to connect
+Allow particular host to connect:
+---------------------------------
 
-To know Public IP address of m/c
+To know Public IP address of m/c: 
 dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | awk -F'"' '{ print $2}'
+
+To check root has access from hosts/IPs other than localhost.
+
+mysql> use mysql;
+mysql> SELECT host FROM user WHERE user = 'root';
 
 GRANT ALL PRIVILEGES ON *.* TO root@‘ip address’ IDENTIFIED BY ‘password’ WITH GRANT OPTION;
 
@@ -37,7 +78,8 @@ GRANT ALL PRIVILEGES ON *.* TO root@‘ip address’ IDENTIFIED BY ‘password�
 FLUSH PRIVILEGES;
 
 
-Import database
+Import database:
+----------------
 
 
 mysql -u root -p dbname < dbdmup.sql
