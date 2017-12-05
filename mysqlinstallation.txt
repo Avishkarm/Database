@@ -1,0 +1,53 @@
+MySQL Installation
+
+sudo apt-get update
+
+sudo apt-get install mysql-server 
+
+sudo mysql_secure_installation
+
+mysqladmin -p -u root version
+
+
+MySQL Commands
+
+MySQL should start running automatically after installation. To test this, check its status.
+service mysql status
+
+If MySQL isn’t running, you can start it with the following command
+sudo service mysql start
+
+Allow Remote Connections
+
+sudo /etc/mysql/nano my.cnf
+
+Replace bind-address = 127.0.0.1 with:
+bind-address = 0.0.0.0
+
+Restart sudo service mysql restart
+
+Allow particular host to connect
+
+To know Public IP address of m/c
+dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | awk -F'"' '{ print $2}'
+
+GRANT ALL PRIVILEGES ON *.* TO root@‘ip address’ IDENTIFIED BY ‘password’ WITH GRANT OPTION;
+
+
+FLUSH PRIVILEGES;
+
+
+Import database
+
+
+mysql -u root -p dbname < dbdmup.sql
+
+
+
+
+
+
+
+
+
+
